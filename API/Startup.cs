@@ -32,6 +32,10 @@ namespace API
             services.AddDbContext<StoreContext>(opt => {
                 opt.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
             });
+
+           services.AddCors(c => {
+                c.AddPolicy("AllowOrigin",options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            });
            
         }
 
@@ -46,6 +50,8 @@ namespace API
             }
 
             //app.UseHttpsRedirection();
+
+            app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             app.UseRouting();
 
